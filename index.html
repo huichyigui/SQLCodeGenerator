@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SQL Code Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body class="p-4 bg-light">
+
+    <h2 class="mb-4">SQL Code Generator</h2>
+
+    <div class="mb-3">
+        <label class="form-label">Action</label>
+        <select id="action" class="form-select">
+            <option value="">-- Select Action --</option>
+            <option value="select">SELECT</option>
+            <option value="update">UPDATE</option>
+            <option value="delete">DELETE</option>
+        </select>
+    </div>
+
+    <div id="commonFields">
+        <div id="selectFields" class="d-none">
+            <div class="mb-3">
+                <label class="form-label">Columns (comma separated)</label>
+                <input type="text" class="form-control" id="columns">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">FROM Table</label>
+                <input type="text" class="form-control" id="tableName">
+            </div>
+
+            <div id="joinSection" class="mb-3">
+                <label class="form-label">JOIN (Optional)</label>
+                <div id="joins"></div>
+                <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="addJoin()">+ Add JOIN</button>
+            </div>
+
+            <div id="whereSection" class="mb-3">
+                <label class="form-label">WHERE (Optional)</label>
+                <div id="whereConditions"></div>
+                <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="addWhere()">+ Add WHERE
+                    Condition</button>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">GROUP BY (Optional)</label>
+                <input type="text" class="form-control" id="groupBy">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">HAVING (Optional)</label>
+                <input type="text" class="form-control" id="having">
+            </div>
+
+            <div id="orderBySection" class="mb-3">
+                <label class="form-label">ORDER BY (Optional)</label>
+                <div class="input-group mb-2">
+                    <input type="text" id="orderByField" class="form-control">
+                    <select id="orderByDirection" class="form-select" style="max-width: 100px;">
+                        <option value="ASC">ASC</option>
+                        <option value="DESC">DESC</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="updateFields" class="d-none">
+            <div class="mb-3">
+                <label class="form-label">Table Name</label>
+                <input type="text" class="form-control" id="updateTable">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">SET</label>
+                <input type="text" class="form-control" id="setClause">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">WHERE (Optional)</label>
+                <input type="text" class="form-control" id="whereClauseUpdate">
+            </div>
+        </div>
+
+        <div id="deleteFields" class="d-none">
+            <div class="mb-3">
+                <label class="form-label">FROM Table</label>
+                <input type="text" class="form-control" id="fromTable">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">WHERE (Optional)</label>
+                <input type="text" class="form-control" id="whereClauseDelete">
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <button id="generateBtn" class="btn btn-primary d-none" onclick="generateSQL()">Generate</button>
+        <button id="clearBtn" class="btn btn-danger d-none" onclick="clearForm(); updateFields();">Clear</button>
+        <button id="resetBtn" class="btn btn-warning d-none" onclick="resetForm()">Reset</button>
+    </div>
+
+    <div id="outputContainer" class="d-none">
+        <div id="outputBox">
+            <button id="copyBtn" class="btn btn-success btn-sm" onclick="copyToClipboard()">Copy</button>
+            <div id="output"></div>
+        </div>
+    </div>
+
+    <footer class="bg-primary bg-gradient text-center text-white">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            &copy; <script>document.write(new Date().getFullYear())</script> Copyright:
+            <a class="text-white" href="https://github.com/huichyigui">Eugene Gui</a>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
